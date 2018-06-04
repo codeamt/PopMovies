@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="https://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/favlist_menu_item"
+        android:title="favorites"
+        app:actionLayout="@layout/navigation_drawer"/>
+</menu>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:orientation="vertical"
+    android:gravity="bottom">
+    <TextView
+        android:id="@+id/drawer_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:elevation="@dimen/elevate2dp"
+        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
+        android:text="@string/close_drawer_text_placeholder"/>
+
+
+    <android.support.v7.widget.CardView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing10dp"
+    card_view:cardBackgroundColor="@color/colorPrimaryDark"
+    card_view:contentPadding="@dimen/card_padding"
+    card_view:cardElevation="@dimen/card_elevation"
+    card_view:cardCornerRadius="@dimen/card_radius"
+    card_view:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing20dp"
+        android:background="?attr/colorPrimaryDark"
+        android:orientation="horizontal">
+        <com.example.annmargaret.popularmovies2.views_ui.animations.IconTextView2
+            android:id="@+id/star_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/icon_text_padding_top"
+            android:layout_marginRight="@dimen/spacing5dp"
+            android:layout_marginEnd="@dimen/spacing5dp"
+            android:textSize="@dimen/icon_text_size"
+            android:elevation="@dimen/elevate2dp"
+            android:layout_gravity="start"
+            android:textColor="@color/colorWhite"
+            android:text="@string/icon_star"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/open_drawer"
+            android:textSize="@dimen/favs_header_text_size"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <ScrollView
+        android:layout_width="@dimen/nav_drawer_scroll_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/spacing20dp">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/rvFavs">
+        </android.support.v7.widget.RecyclerView>
+    </ScrollView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/detailActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/backdrop_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_layout_height"
+            app:expandedTitleMarginStart="@dimen/toolbar_margin_start"
+            app:expandedTitleMarginEnd="@dimen/toolbar_margin_end"
+            app:layout_scrollFlags="scroll|snap">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                style="@style/ToolBarWithNavigationBack"
+                />
+            <ImageView
+                android:id="@+id/header_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/toolbar_image_padding"
+                android:paddingRight="@dimen/toolbar_image_padding"
+                android:paddingTop="@dimen/toolbar_image_padding_vertical"
+                android:layout_marginTop="@dimen/toolbar_image_margin_top"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_collapseMode="parallax"
+                tools:ignore="contentDescription"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <LinearLayout
+            android:id="@+id/headerTitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/toolbar_info_padding_top"
+            android:gravity="center"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/movie_title"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/toolbar_info_movie_title_text"
+                android:textAlignment="center"
+                android:text="@string/movie_name_placeholder"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tagline"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/detail_heading_size"
+                android:text="@string/movie_desc_place_holder" />
+
+            <RatingBar
+                android:theme="@style/RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"
+                android:stepSize="0.25"
+                android:layout_marginTop="@dimen/spacing20dp"
+                android:rating="5.0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/spacing10dp"
+                android:id="@+id/ratingTextView"
+                android:text="@string/movie_rating_text_placeholder"/>
+
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabScrollUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing20dp"
+                android:layout_marginBottom="@dimen/spacing20dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/arrow_up_float"/>
+
+        </LinearLayout>
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarNoParalax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.design.widget.AppBarLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarNoParalax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:visibility="gone"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            style="@style/ToolBarWithNavigationBack"
+            />
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tab_layout"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/detail_activity_elevation"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabIndicatorHeight="@dimen/tab_indicator">
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pager"
+        android:layout_below="@id/tab_layout">
+    </android.support.v4.view.ViewPager>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/btn_star_big_off"/>
+</android.support.design.widget.CoordinatorLayout>

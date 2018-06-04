@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.annmargaret.popularmovies2.views_ui.MainActivity">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@android:drawable/ic_search_category_default"
+        android:orderInCategory="100"
+        android:title="@string/app_name"
+        android:hint="@string/search_hint"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item
+        android:id="@+id/action_sort"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:id="@+id/group_sortOrder"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_sort_rating"
+                    android:title="By Rating" />
+                <item
+                    android:title="By Popularity"
+                    android:id="@+id/action_sort_popularity"
+                    android:checked="true"/>
+                <item
+                    android:id="@+id/action_favorites"
+                    android:title="Favorites"/>
+
+            </group>
+        </menu>
+    </item>
+</menu>

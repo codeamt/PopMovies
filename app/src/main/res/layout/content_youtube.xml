@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/youTubePlaceholder"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.example.annmargaret.popularmovies2.views_ui.FragmentTrailerTab$FragmentYouTube"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout="@layout/you_tube_api">
+</fragment>

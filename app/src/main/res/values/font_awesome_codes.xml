@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_trash">&#xf2ed;</string>
+    <string name="icon_youtube">&#xf167;</string>
+    <string name="icon_comments">&#xf075;</string>
+    <string name="icon_info">&#xf05a;</string>
+    <string name="icon_close">&#xf410;</string>
+    <string name="icon_star">&#xf005;</string>
+</resources>

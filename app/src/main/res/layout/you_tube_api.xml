@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/spacing5dp"
+    android:layout_marginBottom="@dimen/spacing100dp"
+    android:orientation="vertical"
+    android:id="@+id/youTubeWrap">
+
+    <FrameLayout
+        android:id="@+id/youtube_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/youTubeExplainerCard"
+        android:layout_marginTop="@dimen/spacing50dp"
+        card_view:cardBackgroundColor="@color/colorPrimary"
+        card_view:contentPadding="@dimen/card_padding"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardCornerRadius="@dimen/card_radius"
+        card_view:cardUseCompatPadding="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/youTubeExplainerText"
+            android:textColor="@color/colorWhite"
+            android:lineSpacingExtra="@dimen/synopsis_card_line_height"
+            android:textSize="@dimen/synopsis_card_text_size"
+            android:text="@string/youtube_viewing_tip"/>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

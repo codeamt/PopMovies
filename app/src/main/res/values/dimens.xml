@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+    <dimen name="detail_generic_spacing">20dp</dimen>
+    <dimen name="detail_horizontal_margin">10dp</dimen>
+    <dimen name="detail_vertical_margin">10dp</dimen>
+    <dimen name="movie_name_vertical_padding">15dp</dimen>
+    <dimen name="movie_scrollview_horizontal_padding">2dp</dimen>
+    <dimen name="movie_scrollview_vertical_padding">10dp</dimen>
+    <dimen name="scroll_container_padding_bottom">100dp</dimen>
+    <dimen name="image_right_margin">50dp</dimen>
+    <dimen name="detail_image_start">10dp</dimen>
+    <dimen name="description_text_size">20sp</dimen>
+    <dimen name="movie_desc_horizontal">10dp</dimen>
+    <dimen name="movie_desc_vertical">20dp</dimen>
+    <dimen name="review_list_vertical_spacing">15dp</dimen>
+    <dimen name="searchview_height">40dp</dimen>
+    <dimen name="searchview_padding">10dp</dimen>
+    <dimen name="style_spacing_5">5dp</dimen>
+    <dimen name="image_grid_margin">80dp</dimen>
+    <dimen name="review_elevation">2dp</dimen>
+    <dimen name="review_card_padding">16dp</dimen>
+    <dimen name="trailer_item_width">400dp</dimen>
+    <dimen name="trailer_item_height">250dp</dimen>
+    <dimen name="trailer_text_size">18sp</dimen>
+    <dimen name="youTubeWrapMargin_horizontal">100dp</dimen>
+
+
+
+
+    <!-- General Spacing -->
+    <dimen name="spacing0dp">0dp</dimen>
+    <dimen name="spacing5dp">5dp</dimen>
+    <dimen name="spacing10dp">10dp</dimen>
+    <dimen name="spacing15dp">15dp</dimen>
+    <dimen name="spacing20dp">20dp</dimen>
+    <dimen name="spacing50dp">50dp</dimen>
+    <dimen name="spacing100dp">100dp</dimen>
+    <dimen name="spacing150dp">150dp</dimen>
+
+    <dimen name="elevate2dp">2dp</dimen>
+
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_radius">5dp</dimen>
+
+    <!-- Activity Detail -->
+    <dimen name="toolbar_layout_height">460dp</dimen>
+    <dimen name="toolbar_margin_start">48dp</dimen>
+    <dimen name="toolbar_margin_end">64dp</dimen>
+
+    <dimen name="toolbar_image_padding">100dp</dimen>
+    <dimen name="toolbar_image_padding_vertical">170dp</dimen>
+    <dimen name="toolbar_image_margin_top">-70dp</dimen>
+
+    <dimen name="detail_heading_size">18sp</dimen>
+    <dimen name="toolbar_info_padding_top">8dp</dimen>
+    <dimen name="toolbar_info_movie_title_text">22sp</dimen>
+
+    <dimen name="tab_indicator">4dp</dimen>
+    <dimen name="detail_activity_elevation">6dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
+
+
+    <!-- Activity Main -->
+
+    <!-- Detail Info Tab -->
+    <dimen name="intro_card_margin_top">120dp</dimen>
+    <dimen name="intro_card_img_width">150dp</dimen>
+    <dimen name="intro_card_img_height">200dp</dimen>
+    <dimen name="intro_card_img_elevation">6dp</dimen>
+    <dimen name="intro_card_movie_title_text">20sp</dimen>
+
+    <dimen name="synopsis_card_margin_bottom">40dp</dimen>
+    <dimen name="synopsis_card_text_size">20sp</dimen>
+    <dimen name="synopsis_card_line_height">8dp</dimen>
+
+    <!-- Detail Reviews Tab -->
+
+    <!-- Detail Trailer Tab -->
+
+    <!-- Navigation Drawer Body -->
+    <dimen name="icon_text_padding_top">4dp</dimen>
+    <dimen name="icon_text_size">20sp</dimen>
+    <dimen name="favs_header_text_size">22sp</dimen>
+    <dimen name="nav_drawer_scroll_width">200dp</dimen>
+
+
+    <!-- Movie Grid Item -->
+    <!-- Review Card -->
+
+
+
+
+
+
+</resources>

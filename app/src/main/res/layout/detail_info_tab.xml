@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/detailInfoTab"
+    android:background="#000"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoScrollView">
+        <LinearLayout
+            android:id="@+id/infoScrollViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/headerCard"
+                android:paddingLeft="@dimen/spacing10dp"
+                android:paddingRight="@dimen/spacing10dp"
+                android:layout_marginRight="@dimen/spacing10dp"
+                android:layout_marginLeft="@dimen/spacing10dp"
+                android:layout_marginTop="@dimen/intro_card_margin_top"
+                card_view:cardBackgroundColor="@color/colorPrimary"
+                card_view:contentPadding="@dimen/card_padding"
+                card_view:cardElevation="@dimen/card_elevation"
+                card_view:cardCornerRadius="@dimen/card_radius"
+                card_view:cardUseCompatPadding="true">
+                <!--Header Wrap -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/headerWrap"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/header"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/intro_card_img_width"
+                            android:layout_height="@dimen/intro_card_img_height"
+                            android:id="@+id/posterImageView"
+                            android:layout_marginTop="@dimen/spacing20dp"
+                            android:layout_marginStart="@dimen/spacing10dp"
+                            android:elevation="@dimen/intro_card_img_elevation"
+                            android:src="@mipmap/ic_launcher"/>
+                        <!--release and rating -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/headerInfo"
+                            android:layout_marginTop="@dimen/spacing20dp"
+                            android:layout_marginStart="@dimen/spacing20dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/intro_card_movie_title_text"
+                                android:textColor="@color/colorWhite"
+                                android:textAppearance="@color/colorPrimary"
+                                android:id="@+id/title"
+                                android:text="@string/movie_name_placeholder"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:id="@+id/releaseDate"
+                                android:text="@string/movie_release_placeholder" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:id="@+id/runtime"
+                                android:text="@string/search_hint"/>
+
+                            <RatingBar
+                                android:theme="@style/RatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rating"
+                                android:layout_below="@+id/releaseDate"
+                                style="?android:attr/ratingBarStyleSmall"
+                                android:isIndicator="true"
+                                android:stepSize="0.25"
+                                android:layout_marginTop="@dimen/spacing20dp"
+                                android:rating="5.0"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorWhite"
+                                android:id="@+id/ratingTextView"
+                                android:text="@string/movie_rating_text_placeholder"/>
+
+                        </LinearLayout><!--Release and Rating -->
+                    </LinearLayout> <!--Header-->
+                </LinearLayout><!--Header Wrap -->
+            </android.support.v7.widget.CardView>
+
+
+
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/synopsisCard"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="@dimen/spacing15dp"
+                android:layout_marginRight="@dimen/spacing10dp"
+                android:layout_marginLeft="@dimen/spacing10dp"
+                android:layout_marginBottom="@dimen/synopsis_card_margin_bottom"
+                card_view:contentPadding="@dimen/card_padding"
+                card_view:cardElevation="@dimen/card_elevation"
+                card_view:cardCornerRadius="@dimen/card_radius"
+                card_view:cardBackgroundColor="@color/colorPrimary"
+                card_view:cardUseCompatPadding="true">
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/overviewTextView"
+                    android:layout_marginStart="@dimen/spacing10dp"
+                    android:layout_marginTop="@dimen/spacing20dp"
+                    android:layout_marginRight="@dimen/spacing10dp"
+                    android:layout_marginEnd="@dimen/spacing10dp"
+                    android:layout_marginBottom="@dimen/spacing20dp"
+                    android:lineSpacingExtra="@dimen/synopsis_card_line_height"
+                    android:textSize="@dimen/synopsis_card_text_size"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/movie_desc_place_holder"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    </ScrollView>
+</RelativeLayout>
