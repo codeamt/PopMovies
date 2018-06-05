@@ -102,12 +102,16 @@ public class FragmentTrailerTab extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outstate) {
         super.onSaveInstanceState(outstate);
-        outstate.putString("CURRENT_VIDEO_ID", trailerURL);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 
@@ -144,9 +148,6 @@ public class FragmentTrailerTab extends Fragment {
         if(trailerURL == null) {
             VolleyRequests.getTrailer(movie.id, instance);
         }
-        else if(state != null){
-            trailerURL = state.getString("CURRENT_VIDEO_ID");
-        }
     }
 
 
@@ -166,10 +167,8 @@ public class FragmentTrailerTab extends Fragment {
             mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
 
             if (mShareActionProvider != null && movie != null) {
-
                 mShareActionProvider.setShareIntent(createVideoShareIntent(YOUTUBE_BASE_URL +
                         url, movie.displayName));
-
             } else {
                 if(movie != null) {
                     mShareActionProvider.setShareIntent(createVideoShareIntent("<Aww, man. Trailer can't be shared.>", movie.displayName));
@@ -178,7 +177,6 @@ public class FragmentTrailerTab extends Fragment {
         } else {
             Log.d(LOG_TAG, "Sharing unavailable at this time.");
         }
-
         Log.v(LOG_TAG, "Video sharing configured. ");
 
     }
@@ -211,12 +209,10 @@ public class FragmentTrailerTab extends Fragment {
                     if (!wasRestored && instance.trailerURL !=null) {
                         instance.mYouTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
                         instance.mYouTubePlayer.loadVideo(instance.trailerURL);
-
                     }
 
                     if (wasRestored && instance.trailerURL != null) {
                         instance.mYouTubePlayer.loadVideo(instance.trailerURL);
-
                     }
 
 

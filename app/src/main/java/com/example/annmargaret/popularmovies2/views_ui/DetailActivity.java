@@ -140,11 +140,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     @Override
     public void onDestroy() {
         super.onDestroy();
-        VolleyRequests.getMovies(MainActivity.instance);
-        if(mainActivity != null) {
-            mainActivity.movieAdapter = new MovieAdapter(getApplicationContext(), MainActivity.instance.movies);
-            mainActivity.movieAdapter.getFilter().filter("");
-        }
 
     }
 
@@ -221,15 +216,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 onBackPressed();
-                /*if(mainActivity != null) {
-                    mainActivity.movies.clear();
-                    mainActivity.movieAdapter.clearItems();
-                    mainActivity.movieAdapter.notifyDataSetChanged();
-                    VolleyRequests.getMovies(MainActivity.instance);
-                    MovieAdapter movieAdapter = new MovieAdapter(getApplicationContext(), MainActivity.instance.movies);
-                    mainActivity.recyclerView.setAdapter(movieAdapter);
-                    mainActivity.updateUI(false);
-                }*/
             }
         });
 

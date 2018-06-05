@@ -175,15 +175,19 @@ public class VolleyRequests {
                                 JSONObject trailer;
 
                                 for (int i = 0; i < items.length(); i++) {
+
                                     trailer = items.getJSONObject(i);
+
                                     if (trailer.getString("type").equals("Trailer")) {
                                         Trailer trailer_item = new Trailer();
                                         trailer_item.id = trailer.getString("id");
                                         trailer_item.url = trailer.getString("key");
                                         trailer_item.label = trailer.getString("name");
+
                                         //For YouTube Fragment
                                         reference.trailerURL = trailer_item.url;
                                         reference.setVideoShareIntent(reference.trailerURL);
+
                                         Log.v(LOG_TAG, "Trailer Link: " + trailer_item.url + ", for " + trailer_item.label + " stored.");
                                     }
                                 }

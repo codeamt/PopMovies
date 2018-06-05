@@ -58,9 +58,6 @@ public class ClickOnFab implements View.OnClickListener {
             //Log.v(LOG_TAG, movie.displayName + message);
         }
 
-        /* Update Grid */
-        mainActivity.updateUI(true);
-
 
         //Log.v(LOG_TAG, "Favorites grid updated.");
         //Toast favorited status

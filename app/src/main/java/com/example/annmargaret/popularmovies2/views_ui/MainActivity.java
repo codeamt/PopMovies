@@ -5,6 +5,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -21,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.annmargaret.popularmovies2.database.DBAdapter;
 import com.example.annmargaret.popularmovies2.R;
 
+import com.example.annmargaret.popularmovies2.view_adapters.SearchMenuRunnable;
 import com.example.annmargaret.popularmovies2.views_ui.animations.SwipeController;
 import com.example.annmargaret.popularmovies2.views_ui.animations.SwipeControllerActions;
 import com.example.annmargaret.popularmovies2.api.VolleyRequests;
@@ -48,22 +52,25 @@ public class MainActivity extends AppCompatActivity {
 
     /* Views + Widgets */
     public static MainActivity instance;
-    RecyclerView recyclerView;
-    RecyclerView favsRecyclerView;
+    public RecyclerView recyclerView;
+    public RecyclerView favsRecyclerView;
     Menu _menu;
     DrawerLayout mDrawer;
     NavigationView nvDrawer;
     ActionBarDrawerToggle drawerToggle;
     Toolbar toolbar;
     View headerLayout;
+    SearchView search;
+    public MenuItem searchMenuItem;
 
     /* Models + Adapters*/
     Movie movie;
     public MovieAdapter movieAdapter;
     public MovieAdapter favsMovieAdapter;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.LayoutManager favsLayoutManager;
+    public RecyclerView.LayoutManager layoutManager;
+    public RecyclerView.LayoutManager favsLayoutManager;
     public SwipeController swipeController;
+    SearchManager manager;
 
     /* Primitives */
     static public List<Movie> movies = new ArrayList<>();
@@ -77,64 +84,39 @@ public class MainActivity extends AppCompatActivity {
     public RequestQueue mRequestQueue;
 
     /* State */
-    Parcelable mGridState;
-    Parcelable mFavsState;
+    public Parcelable mGridState;
+    public Parcelable mFavsState;
+    public String currentQuery;
+    private static Bundle onPauseState;
+
 
 
 
 
     /* Overrides */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null) {
+            mGridState = savedInstanceState.getParcelable("GRID_STATE_KEY");
+            mFavsState = savedInstanceState.getParcelable("FAVS_STATE_KEY");
+            currentQuery = savedInstanceState.getString("QUERY_KEY");
+            if(layoutManager != null) {
+                layoutManager.onRestoreInstanceState(mGridState);
+            }
+            if(favsLayoutManager != null) {
+                favsLayoutManager.onRestoreInstanceState(mFavsState);
+            }
+        }
         instance = this;
         setContentView(R.layout.activity_main);
         initializeMainActivity();
-        VolleyRequests.getMovies(instance);
-        getFavorites();
-        swipeController = new SwipeController(new SwipeControllerActions() {
-            @Override
-            public void onRightClicked(int position) {
-
-                ContentResolver contentResolver = getApplicationContext().getContentResolver();
-                DBAdapter moviesDB = new DBAdapter(getApplicationContext());
-                String message;
-
-                movie = favMovies.get(position);
-
-
-                if (moviesDB.isMovieFavorited(contentResolver, movie.id)) {
-                    DetailActivity detailActivity = new DetailActivity();
-                    message = getString(R.string.unfav_text);
-                    moviesDB.removeMovie(contentResolver, movie.id);
-                    if (detailActivity.instance != null) {
-                        detailActivity.instance.fab.setImageDrawable(ContextCompat.getDrawable(detailActivity.instance.getApplicationContext(), android.R.drawable.btn_star_big_off));
-                    }
-                    favsMovieAdapter.clearItems();
-                    favMovies.clear();
-                    getFavorites();
-
-                    favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-                    favsRecyclerView.setAdapter(favsMovieAdapter);
-                    favsMovieAdapter.notifyDataSetChanged();
-
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, getApplicationContext());
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-        itemTouchHelper.attachToRecyclerView(favsRecyclerView);
-
-
-        favsRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
-
-
+        if(movies.size() == 0 && savedInstanceState == null) {
+            VolleyRequests.getMovies(instance);
+        }
+        if(favMovies.size() == 0 && savedInstanceState == null) {
+            getFavorites();
+        }
     }
 
 
@@ -142,8 +124,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         _menu = menu;
-        SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchMenuItem = menu.findItem(R.id.search);
+        manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        search = (SearchView) menu.findItem(R.id.search).getActionView();
+
+
+
+
 
         if(manager != null && search != null) {
             search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
@@ -163,111 +150,91 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        getInitialGridSortOrder(menu);
+
+
+        if (currentQuery != null && !currentQuery.isEmpty() && search != null) {
+            new Handler(Looper.getMainLooper()).post(new SearchMenuRunnable(search, currentQuery, instance));
+        }
+
+
+        if(mGridState == null) {
+            getInitialGridSortOrder(menu);
+        }
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int sortId = item.getItemId();
         configSortSettings(item, sortId);
         setGrid(sortId);
-
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    //State Stuff
     @Override
-    public void onSaveInstanceState(Bundle outstate) {
-        super.onSaveInstanceState(outstate);
+    protected void onSaveInstanceState(Bundle outstate) {
+
         mGridState = layoutManager.onSaveInstanceState();
         mFavsState = favsLayoutManager.onSaveInstanceState();
+        currentQuery = search.getQuery().toString();
 
         outstate.putParcelable("GRID_STATE_KEY", mGridState);
         outstate.putParcelable("FAVS_STATE_KEY", mFavsState);
+        outstate.putString("QUERY_KEY", currentQuery);
+
+        super.onSaveInstanceState(outstate);
     }
 
 
     @Override
     protected void onRestoreInstanceState(Bundle state) {
         if(state != null) {
-            favsMovieAdapter.clearItems();
-            favMovies.clear();
-            getFavorites();
-
-
-            favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-            favsRecyclerView.setAdapter(favsMovieAdapter);
-            favsMovieAdapter.notifyDataSetChanged();
-
-            if( activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating) {
-                updateUI(false);
-            }
-
-
             mFavsState = state.getParcelable("FAVS_STATE_KEY");
             mGridState = state.getParcelable("GRID_STATE_KEY");
-
+            currentQuery = state.getString("QUERY_KEY");
         }
+
         super.onRestoreInstanceState(state);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        favsMovieAdapter.clearItems();
-        favMovies.clear();
-        getFavorites();
-
-        favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-        favsRecyclerView.setAdapter(favsMovieAdapter);
-        favsMovieAdapter.notifyDataSetChanged();
-
-
-
-
-        favsLayoutManager.onRestoreInstanceState(mFavsState);
-        layoutManager.onRestoreInstanceState(mGridState);
-    }
-
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            favsMovieAdapter.clearItems();
-            favMovies.clear();
-            getFavorites();
-
-            favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-            favsRecyclerView.setAdapter(favsMovieAdapter);
-            favsMovieAdapter.notifyDataSetChanged();
-
-            if( activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating) {
-                updateUI(false);
-            }
+        if(mFavsState != null) {
+            favsLayoutManager.onRestoreInstanceState(mFavsState);
+        }
+        if(mGridState != null) {
+            layoutManager.onRestoreInstanceState(mGridState);
         }
 
-        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            favsMovieAdapter.clearItems();
-            favMovies.clear();
-            getFavorites();
-        }
-
-        favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-        favsRecyclerView.setAdapter(favsMovieAdapter);
-        favsMovieAdapter.notifyDataSetChanged();
-
-        if( activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating) {
-            updateUI(false);
+        if(onPauseState != null && layoutManager != null && favsLayoutManager != null) {
+            layoutManager.onRestoreInstanceState(mGridState);
+            favsLayoutManager.onRestoreInstanceState(mFavsState);
         }
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    protected void onPause() {
+
+        onPauseState = new Bundle();
+
+        mGridState = layoutManager.onSaveInstanceState();
+        mFavsState = favsLayoutManager.onSaveInstanceState();
+        currentQuery = search.getQuery().toString();
+
+        onPauseState.putParcelable("GRID_STATE_KEY", mGridState);
+        onPauseState.putParcelable("FAVS_STATE_KEY", mFavsState);
+        onPauseState.putString("QUERY_KEY", currentQuery);
+        super.onPause();
     }
+
+
+
 
 
 
@@ -281,7 +248,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setLogo(R.drawable.pop_logo_custom_grey);
 
 
-
         //Setup Drawer
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -292,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
+                favMovies.clear();
+                getFavorites();
                 favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
                 favsRecyclerView.setAdapter(favsMovieAdapter);
                 mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
@@ -348,6 +316,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(movieAdapter);
 
 
+
+
         //Setup Favs RecyclerView
         favsRecyclerView = (RecyclerView) headerLayout.findViewById(R.id.rvFavs);
         favsLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -358,12 +328,55 @@ public class MainActivity extends AppCompatActivity {
             favsRecyclerView.setAdapter(favsMovieAdapter);
         }
 
+        swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+
+                ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                DBAdapter moviesDB = new DBAdapter(getApplicationContext());
+                String message;
+
+                movie = favMovies.get(position);
+
+
+                if (moviesDB.isMovieFavorited(contentResolver, movie.id)) {
+                    DetailActivity detailActivity = new DetailActivity();
+                    message = getString(R.string.unfav_text);
+                    moviesDB.removeMovie(contentResolver, movie.id);
+                    if (detailActivity.instance != null) {
+                        detailActivity.instance.fab.setImageDrawable(ContextCompat.getDrawable(detailActivity.instance.getApplicationContext(), android.R.drawable.btn_star_big_off));
+                    }
+                    favsMovieAdapter.clearItems();
+                    favMovies.clear();
+                    getFavorites();
+
+                    favsMovieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
+                    favsRecyclerView.setAdapter(favsMovieAdapter);
+                    favsMovieAdapter.notifyDataSetChanged();
+
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, getApplicationContext());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(favsRecyclerView);
+
+
+        favsRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
+
 
 
 
         //Volley Service
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
     }
+
 
 
 
@@ -435,7 +448,5 @@ public class MainActivity extends AppCompatActivity {
             getFavorites();
         }
     }
-
-
 
 }
