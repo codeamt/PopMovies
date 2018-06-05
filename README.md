@@ -5,7 +5,7 @@ For the second project of the Grow With Google Developer Scholarship Program (an
 
 
 <p align="center">
-  <img src="https://ucarecdn.com/b03069b7-1f46-439b-836b-c5fdacee911f/" >
+  <img src="https://ucarecdn.com/218c7e01-2788-4238-aa52-7f734c0074ed/" >
 </p>
 
 
@@ -25,7 +25,14 @@ The project was completed in two stages:
 
 <b>Thinking about UX</b>
 
-This project hones in on several useful skills – implementing custom adapters (and fragment classes), configuring child menus, and launching intents to build out a User Experience that meets a host of needs for the end user’s session. Implementing the persistent search functionality was a great learning experience, as it led to more insight about the logistics of filtering a RecyclerView from within an adapter. 
+This project hones in on several useful skills – implementing custom adapters (and fragment classes), configuring child menus, and launching intents to build out a User Experience that meets a host of needs for the end user’s session. 
+
+<p align="center">
+<img src="https://ucarecdn.com/894b4f67-c0df-4b98-9f06-139121a23405/" />
+</p>
+
+
+Implementing the persistent search functionality was a great learning experience, as it led to more insight about the logistics of filtering a RecyclerView from within an adapter. 
 
 <p align="center">
   <img src="https://ucarecdn.com/57121f70-3b3c-4374-b5fc-05f95c5a5093/">
@@ -94,3 +101,4 @@ Several tutorials inspired this project:
 -	https://gist.github.com/takeshiyako2/e776bbaf2966c6501c4f
 -	https://android.jlelse.eu/font-awesome-a-better-way-to-display-symbols-and-icons-in-android-d694e5ee621f
 -	http://saulmm.github.io/mastering-coordinator
+- https://stackoverflow.com/questions/43937210/searchview-after-rotation-button-goes-to-the-3-dots
