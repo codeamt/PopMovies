@@ -68,6 +68,7 @@ public class FragmentTrailerTab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance.trailerURL = null;
         setHasOptionsMenu(true);
     }
 
@@ -94,7 +95,7 @@ public class FragmentTrailerTab extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_share, menu);
         _menu = menu;
-        setVideoShareIntent(trailerURL);
+        setVideoShareIntent(instance.trailerURL);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -102,6 +103,7 @@ public class FragmentTrailerTab extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outstate) {
         super.onSaveInstanceState(outstate);
+        //outstate.putString("CURRENT_VIDEO_ID", trailerURL);
     }
 
     @Override
@@ -147,7 +149,9 @@ public class FragmentTrailerTab extends Fragment {
 
         if(trailerURL == null) {
             VolleyRequests.getTrailer(movie.id, instance);
-        }
+        }/*else if(state != null){
+            trailerURL = state.getString("CURRENT_VIDEO_ID");
+        }*/
     }
 
 

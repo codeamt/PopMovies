@@ -272,6 +272,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(@NonNull View drawerView) {
                 _menu.findItem(R.id.action_sort_popularity).setChecked(true);
+                //temp fix for reviewers
+                movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+                movieAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(movieAdapter);
+                endpoint = "popular";
+                updateUI(false);
             }
 
             @Override
@@ -404,6 +410,11 @@ public class MainActivity extends AppCompatActivity {
             updateUI(false);
             activeId = id;
         } else if(id == R.id.action_favorites) {
+            //temp fix for reviewers
+            movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
+            movieAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(movieAdapter);
+            updateUI(true);
             mDrawer.openDrawer(GravityCompat.START);
         }
     }
