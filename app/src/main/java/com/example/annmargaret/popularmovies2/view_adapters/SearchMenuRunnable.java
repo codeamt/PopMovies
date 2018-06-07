@@ -3,6 +3,7 @@ package com.example.annmargaret.popularmovies2.view_adapters;
 import android.content.res.Configuration;
 import android.support.v7.widget.SearchView;
 
+import com.example.annmargaret.popularmovies2.R;
 import com.example.annmargaret.popularmovies2.api.VolleyRequests;
 import com.example.annmargaret.popularmovies2.views_ui.MainActivity;
 
@@ -34,14 +35,15 @@ public class SearchMenuRunnable implements Runnable {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    if(newText.equals("")) {
+                    if(mainActivity.activeId == R.id.action_sort_popularity || mainActivity.activeId == R.id.action_sort_popularity) {
                         mainActivity.movieAdapter.clearItems();
-                        mainActivity.movies.clear();
-                        mainActivity.updateUI(false);
                         mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.movies);
                         mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
+                    } else if(mainActivity.activeId == R.id.action_favorites) {
+                        mainActivity.movieAdapter.clearItems();
+                        mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.favMovies);
+                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
                     }
-
                     mainActivity.movieAdapter.getFilter().filter(newText);
                     return false;
                 }
