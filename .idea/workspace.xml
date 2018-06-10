@@ -7,22 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52ea98f6-3b3a-4562-9da0-e1a73c8d4c78" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/api/VolleyRequests.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/api/VolleyRequests.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/models/Movie.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/models/Movie.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/view_adapters/SearchMenuRunnable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/view_adapters/SearchMenuRunnable.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/DetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/DetailActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/animations/ClickOnFab.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/animations/ClickOnFab.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -2144,7 +2129,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-54" />
+    <option name="x" value="82" />
     <option name="y" value="23" />
     <option name="width" value="1198" />
     <option name="height" value="730" />
@@ -2166,9 +2151,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2205,6 +2188,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2420,9 +2405,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-54" y="23" width="1198" height="730" extended-state="0" />
+    <frame x="82" y="23" width="1198" height="730" extended-state="0" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2487,7 +2472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1913">
           <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2495,7 +2479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2503,7 +2486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-154">
           <caret line="70" column="36" lean-forward="false" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2525,23 +2507,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
           <caret line="64" column="34" lean-forward="false" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/view_adapters/MovieListDiffCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/view_adapters/MovieListDiffCallback.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/annmargaret/popularmovies2/views_ui/animations/ClickOnFab.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="51" column="107" lean-forward="false" selection-start-line="51" selection-start-column="107" selection-end-line="51" selection-end-column="107" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2549,12 +2522,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="68" column="37" lean-forward="false" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
-          <folding>
-            <element signature="e#1718#3434#0" expanded="false" />
-            <element signature="e#3433#3434#0" expanded="false" />
-            <element signature="e#3436#3666#0" expanded="false" />
-            <element signature="e#3665#3666#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2562,9 +2529,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
           <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="e#1291#1292#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2572,7 +2536,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2580,7 +2543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3371">
           <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2588,7 +2550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="334" column="0" lean-forward="true" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2596,7 +2557,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="62" lean-forward="false" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
