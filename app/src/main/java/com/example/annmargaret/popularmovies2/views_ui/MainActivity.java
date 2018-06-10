@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     static public List<Movie> favMovies = new ArrayList<>();
     public String endpoint = "popular";
     public static int activeId = 0;
-    public static boolean setting_cached = false;
     final String LOG_TAG = "MainActivity";
 
     /* APIs */
@@ -83,10 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    /* Overrides */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
+        setContentView(R.layout.activity_main);
         if(savedInstanceState != null) {
             mGridState = savedInstanceState.getParcelable("GRID_STATE_KEY");
             currentQuery = savedInstanceState.getString("QUERY_KEY");
@@ -94,26 +94,20 @@ public class MainActivity extends AppCompatActivity {
                 layoutManager.onRestoreInstanceState(mGridState);
             }
         }
-        instance = this;
-        setContentView(R.layout.activity_main);
         initializeMainActivity();
-
-        if(movies.size() == 0 && savedInstanceState == null){
-            VolleyRequests.getMovies(instance);
-        }
-        movieAdapter = new MovieAdapter(getApplicationContext(), movies);
-        recyclerView.setAdapter(movieAdapter);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        getInitialGridSortOrder(menu);
         _menu = menu;
+
+        //setup search
         searchMenuItem = menu.findItem(R.id.search);
         manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         search = (SearchView) menu.findItem(R.id.search).getActionView();
-
 
         if(manager != null && search != null) {
             search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
@@ -125,11 +119,15 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    if (activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_popularity){
+
+                    if (activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating){
                         movieAdapter = new MovieAdapter(getApplicationContext(), movies);
                         recyclerView.setAdapter(movieAdapter);
                     } else if(activeId == R.id.action_favorites) {
+                        favMovies.clear();
+                        getFavorites();
                         movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
+                        movieAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(movieAdapter);
                     }
                     movieAdapter.getFilter().filter(newText);
@@ -138,60 +136,73 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
-
+        //handle landscape view search
         if (currentQuery != null && !currentQuery.isEmpty() && search != null) {
             new Handler(Looper.getMainLooper()).post(new SearchMenuRunnable(search, currentQuery, instance));
-        }
-
-
-        if(mGridState == null) {
-            getInitialGridSortOrder(menu);
         }
 
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int sortId = item.getItemId();
-        configSortSettings(item, sortId);
         setGrid(sortId);
+
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    //State Stuff
     @Override
-    protected void onSaveInstanceState(Bundle outstate) {
-
-        mGridState = layoutManager.onSaveInstanceState();
-        currentQuery = search.getQuery().toString();
-
-        outstate.putParcelable("GRID_STATE_KEY", mGridState);
-        outstate.putString("QUERY_KEY", currentQuery);
-
-        super.onSaveInstanceState(outstate);
+    public void onConfigurationChanged(Configuration newConfig) {
+        if(mGridState != null) {
+            if(activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating) {
+                movies.clear();
+                VolleyRequests.getMovies(instance);
+                movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+            } else if (activeId == R.id.action_favorites) {
+                movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
+            }
+            movieAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(movieAdapter);
+            layoutManager.onRestoreInstanceState(mGridState);
+        }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outstate) {
+        super.onSaveInstanceState(outstate);
+
+        if(search.getQuery() != null) {
+            currentQuery = search.getQuery().toString();
+        }
+        mGridState = layoutManager.onSaveInstanceState();
+        outstate.putParcelable("GRID_STATE_KEY", mGridState);
+        outstate.putString("QUERY_KEY", currentQuery);
+        outstate.putInt("ACTIVE_ID", activeId);
+
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
         if(state != null) {
             mGridState = state.getParcelable("GRID_STATE_KEY");
             currentQuery = state.getString("QUERY_KEY");
-        }
+            activeId = state.getInt("ACTIVE_ID");
 
-        super.onRestoreInstanceState(state);
+            if (_menu != null) {
+                _menu.findItem(activeId).setChecked(true);
+            }
+
+            if(mGridState != null) {
+                layoutManager.onRestoreInstanceState(mGridState);
+            }
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         if(mGridState != null) {
             layoutManager.onRestoreInstanceState(mGridState);
         }
@@ -203,14 +214,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-
         onPauseState = new Bundle();
+
         mGridState = layoutManager.onSaveInstanceState();
-        //mFavsState = favsLayoutManager.onSaveInstanceState();
         currentQuery = search.getQuery().toString();
+
         onPauseState.putParcelable("GRID_STATE_KEY", mGridState);
-        //onPauseState.putParcelable("FAVS_STATE_KEY", mFavsState);
         onPauseState.putString("QUERY_KEY", currentQuery);
+        super.onPause();
         super.onPause();
     }
 
@@ -218,8 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    /* Helpers */
+    //Helpers
     public void initializeMainActivity() {
 
         //Setup Toolbar
@@ -230,11 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //Instantiate movie adapter
-        movieAdapter = new MovieAdapter(getApplicationContext(), movies);
 
-
-        //Setup RecyclerView Grid
+        //Start Setup for RecyclerView Grid
         recyclerView = (RecyclerView) findViewById(R.id.rvMain);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             layoutManager = new GridLayoutManager(getApplicationContext(), 3);
@@ -243,60 +250,74 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        //Instantiate movie adapter
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        if(movies.size() == 0) {
+            VolleyRequests.getMovies(instance);
+        }
+        movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+
+
+        //Finish Setup for RecyclerView Grid
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(movieAdapter);
 
-
-
-
-
-        //Volley Service
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
     }
-
-
-
-
-
-    public void configSortSettings(MenuItem item, int id) {
-        id = item.getItemId();
-        if (id == R.id.action_sort_rating) {
-            movieAdapter = new MovieAdapter(getApplicationContext(), movies);
-            movieAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(movieAdapter);
-            endpoint = "top_rated";
-            //updateUI(false);
-        } else if (id == R.id.action_sort_popularity) {
-            movieAdapter = new MovieAdapter(getApplicationContext(), movies);
-            movieAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(movieAdapter);
-            endpoint = "popular";
-        }else if (id == R.id.action_favorites) {
-            movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-            movieAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(movieAdapter);
-        }
-        item.setChecked(true);
-        Log.v(LOG_TAG, "Grid sort settings configured.");
-    }
-
-
 
 
 
     public void setGrid(int id) {
-        if(id == R.id.action_sort_popularity || id == R.id.action_sort_rating ) {
-            updateUI(false);
-            activeId = id;
-        } else if(id == R.id.action_favorites) {
-            //temp fix for reviewers
-            updateUI(true);
-            activeId = id;
+        switch (id) {
+            case R.id.action_sort_popularity: {
+                activeId = R.id.action_sort_popularity;
+                endpoint = "popular";
+                movies.clear();
+                VolleyRequests.getMovies(instance);
+                if (_menu != null) {
+                    _menu.findItem(activeId).setChecked(true);
+                }
+                movieAdapter.setMoviesList(movies);
+                movieAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(movieAdapter);
+                break;
+            }
+            case R.id.action_sort_rating: {
+                activeId = R.id.action_sort_rating;
+                endpoint = "top_rated";
+                movies.clear();
+                VolleyRequests.getMovies(instance);
+                if (_menu != null) {
+                    _menu.findItem(activeId).setChecked(true);
+                }
+                movieAdapter.setMoviesList(movies);
+                movieAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(movieAdapter);
+                break;
+            }
+
+            case R.id.action_favorites: {
+                activeId = R.id.action_favorites;
+                if (_menu != null) {
+                    _menu.findItem(activeId).setChecked(true);
+                }
+                favMovies.clear();
+                getFavorites();
+                movieAdapter.setMoviesList(favMovies);
+                movieAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(movieAdapter);
+                break;
+            }
         }
     }
 
 
+
+    public void getFavorites(){
+        if(getApplicationContext() != null) {
+            favMovies.addAll((new DBAdapter(getApplicationContext()).getFavoriteMovies(getApplicationContext().getContentResolver())));
+        }
+    }
 
 
 
@@ -312,33 +333,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void getFavorites(){
-        if(getApplicationContext() != null) {
-            favMovies.addAll((new DBAdapter(getApplicationContext()).getFavoriteMovies(getApplicationContext().getContentResolver())));
-        }
-    }
 
-
-
-    public void updateUI(boolean cached){
-        if(movieAdapter != null) {
-            movieAdapter.clearItems();
-        }
-        setting_cached = cached;
-
-        if (!cached) {
-            movies.clear();
-            VolleyRequests.getMovies(instance);
-            movieAdapter = new MovieAdapter(getApplicationContext(), movies);
-            movieAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(movieAdapter);
-        } else {
-            favMovies.clear();
-            getFavorites();
-            movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-            movieAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(movieAdapter);
-        }
-    }
 
 }

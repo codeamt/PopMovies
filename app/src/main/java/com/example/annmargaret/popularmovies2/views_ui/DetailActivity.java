@@ -49,12 +49,12 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     AppBarLayout appBarLayout;
     CoordinatorLayout coordinatorLayout;
     public TabLayout tabLayout;
-    static MainActivity mainActivity;
+    static MainActivity mainActivity = MainActivity.instance;
 
 
     /* Models */
     public Movie movie;
-    //public static MovieExtras profile;
+
 
     /* APIs */
     public RequestQueue mRequestQueue;
@@ -64,7 +64,7 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     private int mMaxScrollSize;
     private static final int PERCENTAGE_TO_ANIMATE_AVATAR = 40;
     private boolean mIsAvatarShown = true;
-    //public static String tagLine;
+
 
 
     /* State */
@@ -186,6 +186,18 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if(mainActivity != null && mainActivity.activeId == R.id.action_favorites) {
+            mainActivity.favMovies.clear();
+            mainActivity.getFavorites();
+            mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.favMovies);
+            mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
+        }
+        super.onBackPressed();
+    }
+
+
 
 
 
@@ -208,9 +220,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 onBackPressed();
-                if(mainActivity != null) {
-                    mainActivity.updateUI(false);
-                }
             }
         });
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
