@@ -190,9 +190,11 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     public void onBackPressed() {
         if(mainActivity != null && mainActivity.activeId == R.id.action_favorites) {
             mainActivity.favMovies.clear();
+            mainActivity.movieAdapter.clearItems();
             mainActivity.getFavorites();
             mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.favMovies);
             mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
+            mainActivity.movieAdapter.notifyDataSetChanged();
         }
         super.onBackPressed();
     }

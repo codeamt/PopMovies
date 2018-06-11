@@ -36,40 +36,14 @@ public class SearchMenuRunnable implements Runnable {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    /*if(mainActivity.activeId == R.id.action_sort_popularity || mainActivity.activeId == R.id.action_sort_popularity) {
-                        mainActivity.movieAdapter.clearItems();
-                        mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.movies);
-                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
-                    } else if(mainActivity.activeId == R.id.action_favorites) {
-                        mainActivity.movieAdapter.clearItems();
-                        mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.favMovies);
-                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
-                    }
-                    mainActivity.movieAdapter.getFilter().filter(newText);
-                    return false;*/
 
-                    if(newText.equals("")) {
-                        mainActivity.movieAdapter.clearItems();
-                        //mainActivity.setGrid(mainActivity.activeId);
-                        if(mainActivity.activeId == R.id.action_sort_rating || mainActivity.activeId == R.id.action_sort_popularity) {
-                            mainActivity.movies.clear();
-                            VolleyRequests.getMovies(mainActivity);
-                            mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.movies);
-                        } else if (mainActivity.activeId == R.id.action_favorites) {
-                            mainActivity.favMovies.clear();
-                            mainActivity.getFavorites();
-                            mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.favMovies);
-                        }
-                        mainActivity.movieAdapter.notifyDataSetChanged();
-                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
-                    }
 
                     if (mainActivity.activeId == R.id.action_sort_popularity || mainActivity.activeId == R.id.action_sort_rating){
-                        mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.movies);
-                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
+                        mainActivity.movieAdapter.setMoviesList(mainActivity.movies);
+                        mainActivity.movieAdapter.notifyDataSetChanged();
                     } else if(mainActivity.activeId == R.id.action_favorites) {
-                        mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.favMovies);
-                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
+                        mainActivity.movieAdapter.setMoviesList(mainActivity.favMovies);
+                        mainActivity.movieAdapter.notifyDataSetChanged();
                     }
 
                     mainActivity.movieAdapter.getFilter().filter(newText);
@@ -80,6 +54,9 @@ public class SearchMenuRunnable implements Runnable {
             searchView.clearFocus();
         }
     }
+
+
+
 
 
 

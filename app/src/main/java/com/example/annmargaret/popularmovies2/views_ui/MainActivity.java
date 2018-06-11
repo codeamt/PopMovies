@@ -90,11 +90,21 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState != null) {
             mGridState = savedInstanceState.getParcelable("GRID_STATE_KEY");
             currentQuery = savedInstanceState.getString("QUERY_KEY");
+            activeId = savedInstanceState.getInt("ACTIVE_ID");
             if(layoutManager != null) {
                 layoutManager.onRestoreInstanceState(mGridState);
             }
         }
         initializeMainActivity();
+        if(savedInstanceState != null || onPauseState != null) {
+            if(activeId == R.id.action_favorites && movieAdapter != null) {
+                movieAdapter.clearItems();
+                movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
+                movieAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(movieAdapter);
+            }
+
+        }
     }
 
     @Override
@@ -120,8 +130,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextChange(String newText) {
 
-                    if (activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating){
-                        movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+                    if (activeId == R.id.action_sort_popularity){
+                        movieAdapter.setMoviesList(movies);
+                        recyclerView.setAdapter(movieAdapter);
+                    } else if(activeId == R.id.action_sort_rating) {
+                        movieAdapter.setMoviesList(movies);
                         recyclerView.setAdapter(movieAdapter);
                     } else if(activeId == R.id.action_favorites) {
                         favMovies.clear();
@@ -130,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         movieAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(movieAdapter);
                     }
+
                     movieAdapter.getFilter().filter(newText);
                     return false;
                 }
@@ -140,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentQuery != null && !currentQuery.isEmpty() && search != null) {
             new Handler(Looper.getMainLooper()).post(new SearchMenuRunnable(search, currentQuery, instance));
         }
-
+        getInitialGridSortOrder(menu);
         return true;
     }
 
@@ -148,24 +162,25 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int sortId = item.getItemId();
         setGrid(sortId);
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if(mGridState != null) {
-            if(activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating) {
-                movies.clear();
-                VolleyRequests.getMovies(instance);
-                movieAdapter = new MovieAdapter(getApplicationContext(), movies);
-            } else if (activeId == R.id.action_favorites) {
-                movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
-            }
-            movieAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(movieAdapter);
-            layoutManager.onRestoreInstanceState(mGridState);
+        super.onConfigurationChanged(newConfig);
+        if(activeId == R.id.action_sort_popularity || activeId == R.id.action_sort_rating) {
+            movies.clear();
+            VolleyRequests.getMovies(instance);
+            movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+        } else if (activeId == R.id.action_favorites) {
+            //checking
+            favMovies.clear();
+            getFavorites();
+            movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
         }
+        movieAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(movieAdapter);
+        setGrid(activeId);
     }
 
     @Override
@@ -210,6 +225,10 @@ public class MainActivity extends AppCompatActivity {
         if(onPauseState != null && layoutManager != null) {
             layoutManager.onRestoreInstanceState(mGridState);
         }
+
+        if(onPauseState != null) {
+            activeId = onPauseState.getInt("ACTIVE_ID");
+        }
     }
 
     @Override
@@ -221,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
         onPauseState.putParcelable("GRID_STATE_KEY", mGridState);
         onPauseState.putString("QUERY_KEY", currentQuery);
+        onPauseState.putInt("ACTIVE_ID", activeId);
         super.onPause();
         super.onPause();
     }
@@ -255,7 +275,9 @@ public class MainActivity extends AppCompatActivity {
         if(movies.size() == 0) {
             VolleyRequests.getMovies(instance);
         }
-        movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+        if(movieAdapter == null) {
+            movieAdapter = new MovieAdapter(getApplicationContext(), movies);
+        }
 
 
         //Finish Setup for RecyclerView Grid
@@ -277,8 +299,8 @@ public class MainActivity extends AppCompatActivity {
                 if (_menu != null) {
                     _menu.findItem(activeId).setChecked(true);
                 }
-                movieAdapter.setMoviesList(movies);
-                movieAdapter.notifyDataSetChanged();
+
+                movieAdapter = new MovieAdapter(getApplicationContext(), movies);
                 recyclerView.setAdapter(movieAdapter);
                 break;
             }
@@ -290,8 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 if (_menu != null) {
                     _menu.findItem(activeId).setChecked(true);
                 }
-                movieAdapter.setMoviesList(movies);
-                movieAdapter.notifyDataSetChanged();
+                movieAdapter = new MovieAdapter(getApplicationContext(), movies);
                 recyclerView.setAdapter(movieAdapter);
                 break;
             }
@@ -303,8 +324,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 favMovies.clear();
                 getFavorites();
-                movieAdapter.setMoviesList(favMovies);
-                movieAdapter.notifyDataSetChanged();
+                movieAdapter = new MovieAdapter(getApplicationContext(), favMovies);
                 recyclerView.setAdapter(movieAdapter);
                 break;
             }
