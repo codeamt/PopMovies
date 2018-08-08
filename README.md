@@ -1,7 +1,7 @@
 <h1 align="center"><a href="https://sites.google.com/udacity.com/gwgdevscholarship/home">#GrowWithGoogle</a> Android Development Project: <br>PopMovies App</h1>
 
 
-For the second project of the Grow With Google Developer Scholarship Program (and conjointly Udacity’s Android Development Nanodegree program), students were asked to build and design a movie discovery app (written in Java) from scratch. This app makes use of [TheMovieDB API](https://www.themoviedb.org/documentation/api) and the [YouTube Player API](https://developers.google.com/youtube/android/player/) for Android.
+For the second (and third) project of the Grow With Google Developer Scholarship Program (and conjointly Udacity’s Android Development Nanodegree program), students were asked to build and design a movie discovery app (written in Java) from scratch. This app makes use of [TheMovieDB API](https://www.themoviedb.org/documentation/api) and the [YouTube Player API](https://developers.google.com/youtube/android/player/) for Android.
 
 
 <p align="center">
