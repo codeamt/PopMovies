@@ -3,7 +3,6 @@ package com.example.annmargaret.popularmovies2.view_adapters;
 import android.content.res.Configuration;
 import android.support.v7.widget.SearchView;
 
-import com.example.annmargaret.popularmovies2.R;
 import com.example.annmargaret.popularmovies2.api.VolleyRequests;
 import com.example.annmargaret.popularmovies2.views_ui.MainActivity;
 
@@ -13,7 +12,6 @@ public class SearchMenuRunnable implements Runnable {
     WeakReference<SearchView> searchViewWeakReference;
     String mSearchQuery;
     MainActivity mainActivity;
-
 
     public SearchMenuRunnable(SearchView searchView, String searchQuery, MainActivity reference) {
         searchViewWeakReference = new WeakReference<>(searchView);
@@ -36,14 +34,12 @@ public class SearchMenuRunnable implements Runnable {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-
-
-                    if (mainActivity.activeId == R.id.action_sort_popularity || mainActivity.activeId == R.id.action_sort_rating){
-                        mainActivity.movieAdapter.setMoviesList(mainActivity.movies);
-                        mainActivity.movieAdapter.notifyDataSetChanged();
-                    } else if(mainActivity.activeId == R.id.action_favorites) {
-                        mainActivity.movieAdapter.setMoviesList(mainActivity.favMovies);
-                        mainActivity.movieAdapter.notifyDataSetChanged();
+                    if(newText.equals("")) {
+                        mainActivity.movieAdapter.clearItems();
+                        mainActivity.movies.clear();
+                        mainActivity.updateUI(false);
+                        mainActivity.movieAdapter = new MovieAdapter(mainActivity.getApplicationContext(), mainActivity.movies);
+                        mainActivity.recyclerView.setAdapter(mainActivity.movieAdapter);
                     }
 
                     mainActivity.movieAdapter.getFilter().filter(newText);
@@ -54,8 +50,6 @@ public class SearchMenuRunnable implements Runnable {
             searchView.clearFocus();
         }
     }
-
-
 
 
 

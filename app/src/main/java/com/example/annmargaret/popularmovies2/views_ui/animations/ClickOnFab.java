@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.annmargaret.popularmovies2.api.VolleyRequests;
 import com.example.annmargaret.popularmovies2.database.DBAdapter;
 import com.example.annmargaret.popularmovies2.R;
 import com.example.annmargaret.popularmovies2.models.Movie;

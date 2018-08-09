@@ -64,9 +64,7 @@ public class VolleyRequests {
                                     movie.popularity = movieObj.getDouble("popularity");
                                     // Add image to adapter
                                     reference.movies.add(movie);
-                                    if(reference.movieAdapter != null) {
-                                        reference.movieAdapter.notifyDataSetChanged();
-                                    }
+                                    reference.movieAdapter.notifyDataSetChanged();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

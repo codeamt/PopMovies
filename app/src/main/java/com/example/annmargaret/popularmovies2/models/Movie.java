@@ -62,7 +62,6 @@ public class Movie implements Parcelable {
     public int getRuntime() {
         return runtime;
     }
-    public int getId(){return id; }
 
     /* Setters */
     public void setTitle(String display_name) {
