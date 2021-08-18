@@ -5,7 +5,7 @@ For the second (and third) project of the Grow With Google Developer Scholarship
 
 
 <p align="center">
-  <img src="https://drive.google.com/file/d/1m2Pa5AfsCjZb98Cn74GTawNN4CL5z6iV" >
+  <img src="https://drive.google.com/uc?export=view&id=1m2Pa5AfsCjZb98Cn74GTawNN4CL5z6iV" width="200px" height="400px" />
 </p>
 
 
@@ -17,7 +17,7 @@ The project was completed in two stages:
 
 ## User Story Map
 <p align="center">
-<img src="https://drive.google.com/file/d/1u489e1LPeroIacTPCRJEM6Xo6tTCbYMx" />
+<img src="https://drive.google.com/uc?export=view&id=1u489e1LPeroIacTPCRJEM6Xo6tTCbYMx" width="500px" height="400px" />
 </p>
 
 
@@ -28,23 +28,23 @@ The project was completed in two stages:
 This project hones in on several useful skills – implementing custom adapters (and fragment classes), configuring child menus, and launching intents to build out a User Experience that meets a host of needs for the end user’s session. 
 
 <p align="center">
-<img src="https://drive.google.com/file/d/1nr4jYVa-iCqh-bLNOuN4yFp1R5KhGcnZ" />
+<img src="https://drive.google.com/uc?export=view&id=1nr4jYVa-iCqh-bLNOuN4yFp1R5KhGcnZ"  width="200px" height="400px"  />
 </p>
 
 
 Implementing the persistent search functionality was a great learning experience, as it led to more insight about the logistics of filtering a RecyclerView from within an adapter. 
 
 <p align="center">
-  <img src="https://drive.google.com/file/d/11dK0spZlS508BrtAiSxX_e8GV0s3CTq2">
+  <img src="https://drive.google.com/uc?export=view&id=11dK0spZlS508BrtAiSxX_e8GV0s3CTq2"  width="200px" height="400px" >
 </p>
 
 
 <b>Network Services and Optimizing for Offline Mode</b>
 
-- I opted in for extending this project’s Content Provider to persist favorite movie data to the app's SQL database and making these titles available offline. I also experimented with the Volley http library in order to speed up network requests.
+- I opted in for extending this project’s Content Provider to persist favorite movie data to the app's database and making these titles available offline. I also experimented with the Volley http library in order to speed up network requests.
 
 <p align="center">
-<img src="https://drive.google.com/file/d/1G9rwWXucwy8ZRCTRk8VSZbJuYOOC3ZcI" />
+<img src="https://drive.google.com/uc?export=view&id=1G9rwWXucwy8ZRCTRk8VSZbJuYOOC3ZcI"  width="200px" height="400px" />
 </p>
 
 
