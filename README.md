@@ -5,7 +5,7 @@ For the second (and third) project of the Grow With Google Developer Scholarship
 
 
 <p align="center">
-  <img src="https://ucarecdn.com/218c7e01-2788-4238-aa52-7f734c0074ed/" >
+  <img src="https://drive.google.com/file/d/1m2Pa5AfsCjZb98Cn74GTawNN4CL5z6iV" >
 </p>
 
 
@@ -17,7 +17,7 @@ The project was completed in two stages:
 
 ## User Story Map
 <p align="center">
-<img src="https://ucarecdn.com/54baaedc-f2ad-416a-86c1-7ec331018e4a/" />
+<img src="https://drive.google.com/file/d/1u489e1LPeroIacTPCRJEM6Xo6tTCbYMx" />
 </p>
 
 
@@ -28,39 +28,32 @@ The project was completed in two stages:
 This project hones in on several useful skills – implementing custom adapters (and fragment classes), configuring child menus, and launching intents to build out a User Experience that meets a host of needs for the end user’s session. 
 
 <p align="center">
-<img src="https://ucarecdn.com/894b4f67-c0df-4b98-9f06-139121a23405/" />
+<img src="https://drive.google.com/file/d/1nr4jYVa-iCqh-bLNOuN4yFp1R5KhGcnZ" />
 </p>
 
 
 Implementing the persistent search functionality was a great learning experience, as it led to more insight about the logistics of filtering a RecyclerView from within an adapter. 
 
 <p align="center">
-  <img src="https://ucarecdn.com/57121f70-3b3c-4374-b5fc-05f95c5a5093/">
+  <img src="https://drive.google.com/file/d/11dK0spZlS508BrtAiSxX_e8GV0s3CTq2">
 </p>
 
 
 <b>Network Services and Optimizing for Offline Mode</b>
 
-I opted in for extending this project’s Content Provider to persist favorite movies to the app's database and making these titles available offline. I also experimented with the Volley http library in order to speed up network requests.  
+- I opted in for extending this project’s Content Provider to persist favorite movie data to the app's SQL database and making these titles available offline. I also experimented with the Volley http library in order to speed up network requests.
 
 <p align="center">
-  <img src="https://ucarecdn.com/6c262875-62e5-4898-8149-f0b377d0ebed/">
+<img src="https://drive.google.com/file/d/1G9rwWXucwy8ZRCTRk8VSZbJuYOOC3ZcI" />
 </p>
 
 
 <b>Design and Responsive UI</b>
 
-Instead of making a landscape layout for this app, I implemented a helper function that takes into account device orientation and expands/contracts the number of grid columns accordingly. 
+- Instead of making a landscape layout for this app, I implemented a helper function that takes into account device orientation and expands/contracts the number of grid columns accordingly.
+- I also wanted to extend the user session time, and subsequently used the YouTube Player API to stream a trailer from within the app, itself, rather than launching an intent to the external YouTube service. To make the details page cleaner, I used a pager and tabs to segment general info, the primary movie trailer and RecyclerView list of reviews. I designed collapsible card views for reviews that exceeded 5 lines.
 
-<p align="center">
-  <img src="https://ucarecdn.com/54295f17-1055-422f-ba21-1122c2ea0c07/" width="70%" height="60%">
-</p>
 
-I also wanted to extend the user session time, and subsequently used the YouTube Player API to stream a trailer from within the app, itself, rather than launching an intent to the external YouTube service. To make the details page cleaner, I used a pager and tabs to segment general info, the primary movie trailer and RecyclerView list of reviews. I designed collapsible card views for reviews that exceeded 5 lines.
-
-<p align="center">
-  <img src="https://ucarecdn.com/d1a18265-2b78-4102-b966-5d8c3602a99c/">
-</p>
 
 <b>Using Logger </b> 
 
